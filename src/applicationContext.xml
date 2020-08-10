@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Load the properties file: sport.properties -->
+	<context:property-placeholder
+		location="classpath:sport.properties" />
+
+	<!-- Define your beans here -->
+	<bean id="myFortune"
+		class="com.datagearbi.spring.demo.one.ioc.HappyFortuneService">
+	</bean>
+
+	<bean id="myCoach"
+		class="com.datagearbi.spring.demo.one.ioc.TrackCoach">
+
+		<!-- set up constructor injection -->
+		<constructor-arg ref="myFortune" />
+	</bean>
+
+	<bean id="footBall"
+		class="com.datagearbi.spring.demo.one.ioc.FootBallCoach">
+
+		<!-- set up constructor injection -->
+		<constructor-arg ref="myFortune" />
+	</bean>
+
+	<bean id="myCricket"
+		class="com.datagearbi.spring.demo.one.ioc.CricketCoach">
+		<!-- set up setter injection -->
+		<property name="fortuneService" ref="myFortune" />
+
+		<!-- inject Literal Values -->
+		<!-- <property name="email" value="loai.alarabi@datagearbi.com" /> 
+		<property name="team" value="Java Team" /> -->
+
+		
+		<property name="email" value="${loai.email}" />
+		<property name="team" value="${loai.team}" />
+
+	</bean>
+
+</beans>
+
+
+
+
+
